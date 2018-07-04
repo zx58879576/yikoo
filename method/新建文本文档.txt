@@ -1,3 +1,0 @@
-<action name="login" class="com.jluzh.action.LoginRegistAction">
-struts.xmlÖĞ
-<action name="login" class="com.jluzh.action.LoginRegistAction" method="loginthree">
