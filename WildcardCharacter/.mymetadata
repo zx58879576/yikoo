@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="WildcardCharacter"
+  id="myeclipse.1429019578093"
+  context-root="/WildcardCharacter"
+  j2ee-spec="5.0"
+  archive="WildcardCharacter.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

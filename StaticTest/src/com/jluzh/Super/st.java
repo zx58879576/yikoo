@@ -3,6 +3,7 @@ package com.jluzh.Super;
 public class st extends SuperTest{
 public st() {
 	super("he");
+	
 	super.sup();
 	int d=super.a;
 	int f=super.c;
@@ -10,6 +11,5 @@ public st() {
 }
 public static void main(String[] args) {
 	new st();
-	
 }
 }
