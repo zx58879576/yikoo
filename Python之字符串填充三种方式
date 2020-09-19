@@ -1,0 +1,20 @@
+# coding:UTF-8
+''' 字符串填充
+    三种方式
+'''
+name="可乐翔"
+age=34
+score=98
+infos=["可乐翔",34,98]
+message_1="name:{a_name},age:{a_age},score:{a_score}".format(a_name=name,a_age=age,a_score=score)  #格式化标记定义
+message_2="name:{1},age:{0},score:{2}".format(age,name,score)  #序号定义
+message_3="name:{a_list[0]},age:{a_list[1]},score:{a_list[2]}".format(a_list=infos) #通过索引形式填充
+print(message_1)
+print(message_2)
+print(message_3)
+
+
+运行结果：
+name:可乐翔,age:34,score:98
+name:可乐翔,age:34,score:98
+name:可乐翔,age:34,score:98
