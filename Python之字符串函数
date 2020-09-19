@@ -1,0 +1,39 @@
+# coding:UTF-8
+''' 字符串函数'''
+inf="2016-09-09 16:14 周三"
+print(inf.find("09",6))   #查找 find()函数，返回位置，6表示从位置6开始找
+result=inf.split(" ")  #字符串拆分函数 spilt() ,通过中间空格拆分成三部分
+print("日期拆分：%s" %(result[0].split("-"))) #接着第一部分通过 - 继续拆分
+print("时间拆分：%s" %(result[1].split(":"))) #同上
+print("星期"+result[2])
+print("*".join(result[0].split("-")))  #用*连接 字符串连接函数 join()
+
+inf_1=inf.replace("16","20")  #全部替换  字符串替换函数 replace() ,将字符串"16"替换成"20"
+inf_2=inf.replace("16","20",1)  #部分替换，1表示只替换一次,控制替换的规模
+print("全部替换：%s"% inf_1)
+print("部分替换：%s"%inf_2)
+
+infos="   www.baidu.com;   "
+print(infos.center(60))  #60表总长度60上居中
+print(infos.upper())   #转大写
+print(infos.lower())   #转小写
+print(infos.capitalize())   #首字母大写
+mt_a=infos.maketrans(".","-",";")   #定义转换表 ,其中最后；表示删除；
+print(infos.translate(mt_a))
+print(infos.strip())     #删除左右空格
+
+
+运行结果：
+8
+日期拆分：['2016', '09', '09']
+时间拆分：['16', '14']
+星期周三
+2016*09*09
+全部替换：2020-09-09 20:14 周三
+部分替换：2020-09-09 16:14 周三
+                       www.baidu.com;                       
+   WWW.BAIDU.COM;   
+   www.baidu.com;   
+   www.baidu.com;   
+   www-baidu-com   
+www.baidu.com;
