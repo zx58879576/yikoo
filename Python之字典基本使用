@@ -1,0 +1,53 @@
+# coding:UTF-8
+''' 字典基本使用'''
+infos={"lgm":"老干妈","tx":"腾讯",None:"空空如也"}    #字典定义用{  }
+print("输出为 %s %s %s"%(infos["lgm"],infos["tx"],infos[None]))
+
+infos_1=dict([["lgm","老干妈"],["tx","腾讯"]])  #定义列表 ，转字典  定义字典另一种方法 dict()
+infos_2=dict(lgm="老干妈",tx="腾讯")      #字符串转字典
+print(infos_1)
+print(infos_2)
+print("\n for循环迭代输出字典:")
+for member in infos:
+    print("%s=%s"%(member,infos[member]))
+    
+for key,value in infos.items():    #获取item分离key和value
+    print("%s=%s"%(key,value))
+infos.update({None:None,"lgd":"老干爹"})    #update() 可更新可新增
+print("更新后：%s"%infos)   
+pop1=infos_2.pop("tx")     #pop()弹出指定key数据
+print("弹出数据为：%s,弹出后还剩：%s"%(pop1,infos_2))
+pop2=infos_1.popitem()   #从最后弹出    popitem()弹出一组数据
+print(infos_1)
+print("get获取：%s ,未设置默认值"%infos_1.get("lgm"))    #get（）函数获取
+print("get获取：%s ,设置默认值为%s"%(infos_1.get("lgm"),"空空如也"))
+print("get获取：%s ,不存在的数"%infos_1.get("gg"))
+print("弹出key=%s,value=%s"%(pop2[0],pop2[1]))
+
+dict_a=dict.fromkeys(("baidu","tx"),"网站")   #fromkeys()创建字典，value值均相同
+print(dict_a)
+dict_b=dict.fromkeys("baidu","单个字符")  #字符串本身是一个序列，会获取字符串每一个字符
+print("字符串作为key值：%s"%dict_b)
+
+
+运行结果：
+输出为 老干妈 腾讯 空空如也
+{'lgm': '老干妈', 'tx': '腾讯'}
+{'lgm': '老干妈', 'tx': '腾讯'}
+
+ for循环迭代输出字典:
+lgm=老干妈
+tx=腾讯
+None=空空如也
+lgm=老干妈
+tx=腾讯
+None=空空如也
+更新后：{'lgm': '老干妈', 'tx': '腾讯', None: None, 'lgd': '老干爹'}
+弹出数据为：腾讯,弹出后还剩：{'lgm': '老干妈'}
+{'lgm': '老干妈'}
+get获取：老干妈 ,未设置默认值
+get获取：老干妈 ,设置默认值为空空如也
+get获取：None ,不存在的数
+弹出key=tx,value=腾讯
+{'baidu': '网站', 'tx': '网站'}
+字符串作为key值：{'b': '单个字符', 'a': '单个字符', 'i': '单个字符', 'd': '单个字符', 'u': '单个字符'}
