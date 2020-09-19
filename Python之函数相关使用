@@ -1,0 +1,73 @@
+# -*- coding: utf-8 -*-
+
+'''
+       ---函数相关使用---
+
+定义累加累减函数
+'''
+def addm(ope,*numbers):   
+    '''
+   定义一个可变参数实现数学计算，通过传入的的数学命令执行数字处理
+   numbers 为可变参数，是元组，接受多个量
+'''
+    sum=0
+    if ope=="+":
+        for num in numbers:
+            sum+=num
+    elif ope=="-":
+        for num in numbers:
+            sum-=num
+    return sum
+
+print("累加和为：%d"%addm("+",1,2,3,4,5,6,7))
+print("累减和为：%d"%addm("-",1,2,3,4,5,6,7))
+
+
+
+def info(name,age,*hobby,**book):
+    """
+      定义一个输出操作函数，接收必选和关键字参数
+      ：param name:要输入的名字
+      ：param age:年龄
+      ：param hobby :接受元组
+      ：param book 一组"key=value"的信息组合
+    """
+    print("名字为：%s,\n年龄：%d"%(name,age))
+    print("爱好为：")
+    for hob in hobby:
+        print(hob,end="、")
+    print("\n喜欢的书为：")
+    for key,value in book.items():
+           print(" %s:%s"%(key,value))
+info("可乐翔",34,"唱歌","游泳","羽毛球",knrj="狂年日记",ly="论语")
+
+
+def digui(num):
+    """
+  递归计算1+2+3+...+num
+"""
+    if num==1:
+        return 1
+    return num+digui(num-1)
+print("连加递归结果为：%d"%digui(100))
+
+def digui_1(num):   # 递归算阶乘
+    if num==1:
+        return 1
+    return num*digui_1(num-1)
+print("阶乘递归结果为：%d"%digui_1(20))
+
+
+
+运行结果：
+累加和为：28
+累减和为：-28
+名字为：可乐翔,
+年龄：34
+爱好为：
+唱歌、游泳、羽毛球、
+喜欢的书为：
+ knrj:狂年日记
+ ly:论语
+连加递归结果为：5050
+阶乘递归结果为：2432902008176640000
