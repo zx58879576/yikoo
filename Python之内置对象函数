@@ -1,0 +1,109 @@
+# -*- coding: utf-8 -*-
+"""内置对象函数"""
+
+"""
+callable()函数判断给定结构是否可以调用 ，返回True或False
+"""
+print("input函数是否可以调用：%s"%callable(input))
+print("www字符串是否可以调用：%s"%callable("www"))
+def infos():
+    return "ok"
+inf=infos
+print("infos函数是否可以调用：%s"%callable(infos))
+print("inf引用对象是否可以调用：%s"%callable(inf))
+
+"""
+eval() 将要执行的代码通过字符串定义，只能单行
+"""
+global_num=10 #定义全局变量
+print(eval("global_num*3"))  #字符串形式为要执行的表达式
+global_inf="输出的数据为：{}" #字符串格式化文本
+dic=dict(num=global_num,inf=global_inf) #定义字典
+result=eval("inf.format(num*4)",dic)  #传递字典
+print(result)
+
+list_str="[ 'LIST1','LIST 2','LIST 3']"  #定义列表字符串
+tuple_str="('TUPLE1','TUPLE2','TUPLE3')"  #定义元组字符串
+dict_str="{'DICT1':'D1','DICT2':'D2','DICT3':'D3'}" #定义字典字符串
+list1=eval(list_str)   #转列表
+tuple1=eval(tuple_str) #转元组
+dict1=eval(dict_str)  #转字典
+print("list1为：%s,类型为：%s"%(list1,type(list1)))
+print("tuple1为：%s,类型为：%s"%(tuple1,type(tuple1)))
+print("dict1为：%s,类型为：%s"%(dict1,type(dict1)))
+
+"""
+exec() 将要执行的代码通过字符串定义,单行或多行
+"""
+str1_exec="for num in range(1,10,3):" \
+            "print(num)"
+str2_exec="def sum():" \
+            "print(21)"
+exec(str1_exec)       #将字符串转表达式
+exec1=exec(str2_exec)  #转表达式尝试接受返回值
+print(exec1)     #结果输出为None,表明并不能接收返回值
+
+"""
+compile() 将要执行的代码通过字符串定义,单行或多行
+有三种模式：
+eval: 使用eval处理执行单行代码，接收返回值
+single:使用evec处理执行单行代码，不可接收返回值，
+        但可接收代码内定义的变量
+evec: 使用evec处理执行单行或多行代码，不可接收返回值
+"""
+'''eval模式'''
+compile1_str="20*5"
+com1=compile(compile1_str,"","eval")  #eval模式
+result=eval(com1)    #接收返回值
+print("eval模式结果为：%d"%result)
+
+'''single模式'''
+input1=None
+compile2_str="input1=input('请输入你喜欢的网站：')"
+com2=compile(compile2_str,"","single") #single模式
+print("single模式:",end="")
+exec(com2)   #不能接收返回值 ，仅转表达式
+print("你喜欢的网站为：%s"%input1) #可接收代码内定义的input1
+
+'''exec模式'''
+input2=[]
+compile3_str="for item in range(3): "\
+      "  input2.append(input('请输入网址：'))"
+com3=compile(compile3_str,"","exec") #exec模式
+print("exec模式:",end="")
+exec(com3)    #不能接收返回值 ，仅转表达式
+print(input2)  
+
+
+
+
+
+
+
+
+
+运行结果：
+input函数是否可以调用：True
+www字符串是否可以调用：False
+infos函数是否可以调用：True
+inf引用对象是否可以调用：True
+30
+输出的数据为：40
+list1为：['LIST1', 'LIST 2', 'LIST 3'],类型为：<class 'list'>
+tuple1为：('TUPLE1', 'TUPLE2', 'TUPLE3'),类型为：<class 'tuple'>
+dict1为：{'DICT1': 'D1', 'DICT2': 'D2', 'DICT3': 'D3'},类型为：<class 'dict'>
+1
+4
+7
+None
+eval模式结果为：100
+single模式:
+请输入你喜欢的网站：www.baidu.com
+你喜欢的网站为：www.baidu.com
+exec模式:
+请输入网址：wee
+
+请输入网址：ere
+
+请输入网址：rtr
+['wee', 'ere', 'rtr']
