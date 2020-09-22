@@ -1,0 +1,138 @@
+# -*- coding: utf-8 -*-
+""" sys模块"""
+import sys
+print("程序路径为：%s"%sys.path)
+# print("程序包含模块：%s"%sys.modules)
+print("运行系统为：%s"%sys.platform)
+print("程序默认编码为：%s"%sys.getdefaultencoding())
+print("输入参数个数为：%s"%len(sys.argv))
+'''
+if len((sys.argv))==1:
+       print("未输入参数，程序退出")
+       sys.exit(0)
+else:
+       print("请输入参数：",end=" ")
+       for item in sys.argv:
+           print("参数为：%s"%item,end="、")
+'''
+           
+           
+""" copy模块"""
+
+''' 引用传递和cope对比
+  
+ 引用传递
+'''
+import copy
+infos=dict(name="可乐翔",interest=["旅游","学习"])
+infos_1=infos   
+infos_1["interest"].append("游泳") #引用传递对象可对其修改
+print(infos)
+
+'''
+copy模块中的cope()函数：浅拷贝   deepcopy()函数：深拷贝
+'''
+member=dict(name="可乐翔",interest=["旅游","学习"])
+copy_member=copy.copy(member) #浅拷贝
+copy_member["interest"].append("游泳")
+copy_member.update(age="12")
+print("-----------------浅拷贝-----------------")
+print(member)
+print("copy模块浅拷贝后：%s"%copy_member)
+
+member1=dict(name="可乐翔",interest=["旅游","学习"])
+copy_member1=copy.deepcopy(member1) #深拷贝
+copy_member1["interest"].append("游泳")
+copy_member1.update(age="12")
+print("-----------------深拷贝-----------------")
+print(member1)
+print("copy模块浅拷贝后：%s"%copy_member1)
+
+copy_member2=member1.copy()   #序列内部提供的copy函数
+copy_member2["interest"].append("游泳")
+copy_member2.update(age="12")
+print("--------------内部拷贝--------------")
+print("copy模块浅拷贝后：%s"%copy_member2)
+""" 偏函数"""
+from functools import partial
+def add(a,b,c=2):
+    return a+b+c
+plus=partial(add,100,200) #此时a和b参数的内容就确定了
+print(plus())#c参数使用默认值
+print(plus(30))  #设置C值为30
+
+""" 数学模块"""
+from math import *
+print("阶乘计算：%d"%factorial(5))
+print("累加计算：%d"%fsum(range(101)))#参数是累加一串数或range()
+print("乘方计算：%d"%pow(10,3))
+print("对数计算：%d"%log2(8))
+print("余数计算：%d"%fmod(10,3))
+print("四舍五入计算：%d"%round(5.64))
+
+from cmath import *   #用于复数相关计算
+
+
+""" random模块"""
+from random import *
+for num in range(10):
+    print(randint(1,100),end=",")  #randint 随机生成数
+numbers=[]
+while len(numbers)!=7:     #循环7组数据
+    num=randint(1,45)     #随机数从1-45中产生
+    if num not in numbers:    #单独数据，判断是否重复
+        numbers.append(num)  #不重复的加入列表中
+numbers.sort()
+print()
+print(numbers)
+for item in range(5):
+    print(choice(numbers),end=",")  #choice()从指定序列中随机选择
+
+
+""" map()、reduce()、filter()
+map():对序列数据进行处理
+filter()：对序列数据进行过滤
+reduce():对序列数据进行统计
+"""
+nums=[1,2,3,4,5,6,7,8,9]
+filter_result=list(filter(lambda x:x%2==0,nums))
+map_result=list(map(lambda item:item*2,filter_result))
+from functools import reduce
+reduce_result=reduce(lambda x,y:x+y,map_result)
+print()
+print("filter()过滤结果：%s"%filter_result)
+print("map()处理结果：%s"%map_result)
+print("reduce()统计结果：%s"%reduce_result)
+
+
+
+
+
+运行结果：
+程序路径为：['D:\\anaconda\\python38.zip', 'D:\\pythonWork\\ecjtu', 'D:\\anaconda\\DLLs', 'D:\\anaconda\\lib', 'D:\\anaconda', '', 'D:\\anaconda\\lib\\site-packages', 'D:\\anaconda\\lib\\site-packages\\win32', 'D:\\anaconda\\lib\\site-packages\\win32\\lib', 'D:\\anaconda\\lib\\site-packages\\Pythonwin', 'D:\\anaconda\\lib\\site-packages\\IPython\\extensions', 'C:\\Users\\Administrator\\.ipython']
+运行系统为：win32
+程序默认编码为：utf-8
+输入参数个数为：1
+{'name': '可乐翔', 'interest': ['旅游', '学习', '游泳']}
+-----------------浅拷贝-----------------
+{'name': '可乐翔', 'interest': ['旅游', '学习', '游泳']}
+copy模块浅拷贝后：{'name': '可乐翔', 'interest': ['旅游', '学习', '游泳'], 'age': '12'}
+-----------------深拷贝-----------------
+{'name': '可乐翔', 'interest': ['旅游', '学习']}
+copy模块浅拷贝后：{'name': '可乐翔', 'interest': ['旅游', '学习', '游泳'], 'age': '12'}
+--------------内部拷贝--------------
+copy模块浅拷贝后：{'name': '可乐翔', 'interest': ['旅游', '学习', '游泳'], 'age': '12'}
+302
+330
+阶乘计算：120
+累加计算：5050
+乘方计算：1000
+对数计算：3
+余数计算：1
+四舍五入计算：6
+15,8,29,43,82,97,72,86,69,34,
+[4, 24, 25, 28, 33, 37, 44]
+33,4,33,4,25,
+filter()过滤结果：[2, 4, 6, 8]
+map()处理结果：[4, 8, 12, 16]
+reduce()统计结果：40
