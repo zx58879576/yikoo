@@ -1,0 +1,75 @@
+# -*- coding: utf-8 -*-
+""" 构造方法"""
+class mem:
+    def __init__(self,name,age):  #构造函数
+        self.__name=name
+        self.__age=age
+    def inner__(self):  #内部函数 ，可直接访问和修改私有成员
+        return "姓名：%s,年龄：%s"%(self.__name,self.__age)
+def main():
+    m_1=mem("可乐翔",33)   #实例化对象调用构造函数
+    print(m_1.inner__(),end="\n")   #外部调用内部函数修改私有成员
+if __name__=="__main__":
+    main()
+    
+
+""" 构造方法
+无重载概念，须通过关键字参数
+析构函数
+"""
+class mem:
+    def __init__(self,**key):  #构造函数
+        self.__name=key.get("name")
+        self.__age=key.get("age")
+    def inner__(self):  #内部函数 ，可直接访问和修改私有成员
+        return "姓名：%s,年龄：%s,地址：%s"%(self.__name,self.__age,id(self))
+    def __del__(self):      #析构函数
+        print("释放对象地址为：%s"%id(self))
+def main():
+    m_1=mem(name="可乐翔",age=33)   #关键字参数
+    print(m_1.inner__(),end="\n")   
+    m_2=mem(name="可乐翔")  
+    print(m_2.inner__(),end="\n") 
+    print(mem(age=33).inner__(),end="\n")  #匿名对象
+if __name__=="__main__":
+    main()
+    
+    
+class cla:
+   __slots__=("name","sex")  #限制定义的属性
+def main():
+    c=cla()
+    c.name="天青色"
+    c.sex="女"
+    #c.age=18  #AttributeError 不可再通过实例对象添加类属性
+    cla.school="吉林大学"  #但是可通过类添加
+    print("姓名：%s,性别：%s,学校：%s"%(c.name,c.sex,cla.school))  
+if __name__=="__main__":
+    main()
+
+
+class outer:
+    class __inner:
+        def aa():
+           print("封装的内部类")
+    class imm:
+        def bb():
+           print("正常内部类")
+def main():
+    out=outer()
+    # out.__inner.aa() #AttributeError: 'outer' object has no attribute '__inner'
+    out.imm.bb()   #调用内部类
+if __name__=="__main__":
+    main()
+    
+    
+运行结果：
+姓名：可乐翔,年龄：33
+姓名：可乐翔,年龄：33,地址：1778057333008
+姓名：可乐翔,年龄：None,地址：1778057772432
+释放对象地址为：1778057769360
+姓名：None,年龄：33,地址：1778057769360
+释放对象地址为：1778057333008
+释放对象地址为：1778057772432
+姓名：天青色,性别：女,学校：吉林大学
+正常内部类
