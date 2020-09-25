@@ -1,0 +1,23 @@
+# -*- coding: utf-8 -*-
+""" 封装  私有属性外部和内部的访问和修改"""
+class mem:
+    def get_name(self,name): #get（）函数
+        return self.__name
+    def set_name(self,name):#set函数
+        self.__name=name
+    def inner__(self,name):  #内部函数 ，可直接访问和修改私有成员
+        self.__name="天青色"
+def main():
+    m=mem()   #实例化对象
+    m.set_name("可乐翔")
+    print("姓名：%s" % m.get_name(m)) #外部用get方法获取内部私有成员
+    m.inner__(m)   #外部调用内部函数修改私有成员
+    print("姓名：%s" % m.get_name(m))
+if __name__=="__main__":
+    main()
+    
+    
+    
+运行结果：
+姓名：可乐翔
+姓名：天青色
