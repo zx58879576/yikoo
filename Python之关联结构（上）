@@ -1,0 +1,90 @@
+# -*- coding: utf-8 -*-
+""" 一对一关联结构"""
+class mem:
+    def __init__(self,**key):  #构造函数
+        self.__name=key.get("name")
+        self.__age=key.get("age")
+    def get_car(self):
+        return self.__car
+    def set_car(self,car):
+        self.__car=car
+    def get_info(self):  #内部函数 ，可直接访问和修改私有成员
+        return "姓名：%s,年龄：%s"%(self.__name,self.__age)     
+class car:
+    def __init__(self,**key):  #构造函数
+        self.__price=key.get("price")
+        self.__brand=key.get("brand")
+    def get_mem(self):
+        return self.__mem
+    def set_mem(self,mem): 
+        self.__mem=mem
+    def get_info(self):  #内部函数 ，可直接访问和修改私有成员
+        return "价钱：%s,品牌：%s"%(self.__price,self.__brand)
+def main():
+    m=mem(name="可乐翔",age="12")
+    c=car(price="100000",brand="玛莎拉蒂")
+    m.set_car(c)
+    c.set_mem(m)
+    print("通过人找到车：%s"%m.get_car().get_info())
+    print("通过车找到人：%s"%c.get_mem().get_info())
+if __name__=="__main__":
+    main()
+    
+    
+"""自身关联结构"""
+class Member:
+    def __init__(self,**key):
+        self.__name=key.get("name")
+        self.__sex=key.get("sex")
+        self.__child=[]
+    def get_infos(self):
+        return "姓名：%s,性别：%s"%(self.__name,self.__sex)
+    def get_child(self):
+        return self.__child
+    def set_car(self,car):
+        self.__car=car
+    def get_car(self):
+        return self.__car
+class Car:
+    def __init__(self,**key):
+        self.__brand=key.get("brand")
+        self.__price=key.get("price")
+    def get_infos(self):
+        return "车标：%s,价钱：%s"%(self.__brand,self.__price)
+    def set_mem(self,mem):
+        self.__mem=mem
+    def get_mem(self):
+        return self.__mem
+def main():
+    member=Member(name="天青色",sex="女")
+    car=Car(price="1000400",brand="玛莎拉蒂")
+    member.set_car(car)
+    car.set_mem(member)
+    member_1=Member(name="小王",sex="女")  #实例化对象
+    member_2=Member(name="小李",sex="男")  #实例化对象
+    car_1=Car(price="120",brand="电动车")  #实例化对象
+    car_2=Car(price="3333",brand="拖拉机")  #实例化对象
+    member_1.set_car(car_1)   #设置关联member_1和car_1
+    member_2.set_car(car_2)  #设置关联member_2和car_2
+    car_1.set_mem(member_1)  #设置关联member_1和car_1
+    car_2.set_mem(member_2)  #设置关联member_2和car_2
+    member.get_child().append(member_1)
+    member.get_child().append(member_2)
+    print(member.get_infos())
+    print(member.get_car().get_infos())
+    for child in member.get_child():   #通过列表，循环打印出子女及关联信息
+        print("儿女辈：%s"%child.get_infos())
+        print(child.get_car().get_infos())
+if __name__=="__main__":
+    main() 
+    
+    
+运行结果：
+通过人找到车：价钱：100000,品牌：玛莎拉蒂
+通过车找到人：姓名：可乐翔,年龄：12
+姓名：天青色,性别：女
+车标：玛莎拉蒂,价钱：1000400
+儿女辈：姓名：小王,性别：女
+车标：电动车,价钱：120
+儿女辈：姓名：小李,性别：男
+车标：拖拉机,价钱：3333
