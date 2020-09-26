@@ -1,0 +1,23 @@
+# -*- coding: utf-8 -*-
+""" 继承"""
+class Person:
+    def __init__(self):
+        print("父类构造函数")
+class Student(Person):   #继承Person父类
+    def __init__(self):
+        print("子类构造函数")
+        super().__init__()     #子类构造方法中调用父类构造方法
+    def fun(self):
+        super().__init__()  #子类普通方法中调用父类构造方法
+def main():
+    stu=Student()   #实例化对象，自动调用构造方法
+    stu.fun()
+    
+if __name__=="__main__":
+    main()
+    
+
+运行结果：
+子类构造函数
+父类构造函数
+父类构造函数
