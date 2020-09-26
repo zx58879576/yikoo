@@ -1,0 +1,61 @@
+# -*- coding: utf-8 -*-
+""" 一对多关联结构"""
+class Class:
+    def __init__(self,**key):  #构造函数,多参
+        self.__cname=key.get("cname") #班级属性班名
+        self.__cnumber=key.get("cnumber") #班级属性 班人数
+        self.__stu=[]   # 列表，班级属性 学生
+    def get_stu(self):  #get方法
+        return self.__stu 
+    def set_stu(self,stu): #set方法
+        self.__stu=stu
+    def get_info(self):   # 获取输出信息
+        return "班名：%s,人数：%s"%(self.__cname,self.__cnumber)     
+class Student:
+    def __init__(self,**key):   #同上
+        self.__name=key.get("name")
+        self.__sex=key.get("sex")
+    def get_cla(self):
+        return self.__cla
+    def set_cla(self,cla): 
+        self.__cla=cla
+    def get_info(self):  
+        return "学生姓名：%s,性别：%s"%(self.__name,self.__sex)
+def main():
+    cla=Class(cname="2班",cnumber=30) #实例化对象 班级类
+    stu_a=Student(name="小明",sex="男") #实例化学生a
+    stu_b=Student(name="小王",sex="女") #实例化学生b
+    stu_c=Student(name="小张",sex="女") #实例化学生c
+    stu_a.set_cla(cla)      #班级一对多关系
+    stu_b.set_cla(cla)      #班级一对多关系
+    stu_c.set_cla(cla)      #班级一对多关系
+    cla.get_stu().append(stu_a)  #添加到学生列表
+    cla.get_stu().append(stu_b)  #添加到学生列表
+    cla.get_stu().append(stu_c)  #添加到学生列表
+    print(cla.get_info())
+    for stu in cla.get_stu():
+        print("\t%s"%stu.get_info())
+if __name__=="__main__":
+    main()
+    
+    
+    
+"""合成设计模式 伪代码"""
+class Blackboard:
+    pass
+class Map:
+    pass
+class Desks:
+    pass
+class Classroom:    
+    def __init__(self):    #多个合成一个
+        self.__black=Blackboard()
+        self.__map=Map()
+        self.__desk=[]
+        
+        
+  运行结果：
+  班名：2班,人数：30
+	    学生姓名：小明,性别：男
+	    学生姓名：小王,性别：女
+	    学生姓名：小张,性别：女
