@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+""" 对象比较与对象格式化"""
+class Member :
+    def __init__(self,name,age):
+        self.name=name
+        self.age=age
+    def __str__(self):   #覆写__str__方法，将被自动调用
+        return"自动调用__str__方法：姓名：%s，年龄：%s"%(self.name,self.age)
+    def __bool__(self):
+        return self.age>18   #覆写__bool__方法，将被自动调用
+    def __le__(self,other):
+        if not isinstance(other,Member)or other==None:
+            return False
+        return self.age<=other.age
+def main():
+    mem=Member("张三",22)
+    print(mem)     #接收覆写的__str__方法返回值
+    if mem:        #接收覆写的__bool__方法返回值
+        print("成年了")
+    mem2=Member("李四",32)
+    print(mem.__le__(mem2))  #小于等于比较，为TRUE
+    
+# =============================================================================
+#     util=__import__("util")   #定义要导入的模块，模块得存在
+#     get_info=getattr(util, get_info)  #获取函数对象
+#     print(get_info())
+#     mess=getattr(util, Message)
+#     print(mess.echo("www"))
+# =============================================================================
+if __name__=="__main__":
+    main()
+    
+运行结果：
+自动调用__str__方法：姓名：张三，年龄：22
+成年了
+True
+
+
+
+    
+    
