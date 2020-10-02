@@ -1,0 +1,107 @@
+# -*- coding: utf-8 -*-
+""" 拦截"""
+class Member :
+    def __getattribute__(self,item):
+        if item=="content":
+            return "%s已被拦截，正在进入www.baidu.com"%item
+        elif item=="send":
+            return self.other #返回其他方法的引用
+        else: 
+            return object.__getattribute__(self,item) # 放行
+    def send(self,info):
+        print("消息发送：%s"%info)
+    def other(self,note):
+        print("替换方法：%s"%note)
+        
+
+def main():
+    mem=Member()
+    mem.content="www.huya.com"
+    print(mem.content)
+    mem.send("www.douyu.com")
+if __name__=="__main__":
+    main()
+    
+    
+class Message(object):
+    def __init__(self,note):
+        self.note=note
+def main():
+    msg=Message("clockxiang")
+    msg.con="可乐翔"     #添加属性con
+    print(msg.__dict__)  #实例属性字典
+if __name__=="__main__":
+    main()
+    
+"""自定义迭代"""
+class Message_1:
+    def __init__(self,max):  #max:允许迭代的最大值
+        self._foot=max-1    #迭代当前脚标
+        self._max=max
+        self.__msg_list=[10,9,8,7,6,5]
+    def __iter__(self):  #获取iterable对象
+        return self
+    def __next__(self):
+        if self._foot<0:
+            return -1
+        else:
+            val=self._max-self._foot
+            self._foot-=1
+            return val 
+    def get_msg_list(self):
+        return self.__msg_list
+    def __reversed__(self):  
+        self.__msg_list=reversed(self.__msg_list)
+def main():
+    mem_1=Message_1(20)
+    for v in mem_1:    #对象可直接for循环
+    
+        if v==-1:
+            break
+        print(v,end="、")
+    print()
+    reversed(mem_1)     #反转
+    for m in mem_1.get_msg_list():
+        print(m,end="、")
+if __name__=="__main__":
+    main() 
+    
+
+class Message_2:
+    def __init__(self):
+        self._map={}   #定义一个空字典
+    def __setitem__(self,key,value):
+        print("设置的数据为：%s"%key)
+        self._map[key]=value
+    def __getitem__(self,item):
+        print("获取的数据为：%s"%item)
+        return self._map[item]
+# =============================================================================
+#     def _delitem__(self,key):
+#         print("删除的数据为：%s"%key)
+#         self._map.pop[key]
+#     def _len_(self):
+#         return len(self._map)
+# =============================================================================
+def main():
+    mem_2=Message_2()
+    print()
+    mem_2["可乐翔"]="ClockXiang"
+    print(mem_2["可乐翔"])
+    # print("元素保存的个数：%s"% mem_2.len())
+    # del mem_2["可乐翔"]
+    
+if __name__=="__main__":
+    main() 
+
+    
+    
+运行结果：
+content已被拦截，正在进入www.baidu.com
+替换方法：www.douyu.com
+{'note': 'clockxiang', 'con': '可乐翔'}
+1、2、3、4、5、6、7、8、9、10、11、12、13、14、15、16、17、18、19、20、
+5、6、7、8、9、10、
+设置的数据为：可乐翔
+获取的数据为：可乐翔
+ClockXiang
