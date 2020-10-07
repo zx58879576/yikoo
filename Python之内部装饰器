@@ -1,0 +1,77 @@
+# -*- coding: utf-8 -*-
+""" 静态方法  && 类方法"""
+class Member :
+    @staticmethod
+    def static_method():  #定义静态方法（无self） ，需要@staticmethod声明
+        # common_method()          #出错，不能直接调用普通方法     
+        Member().common_method()  #通过实例化匿名对象调用 
+        return "静态方法" 
+    @classmethod
+    def class_method(clazz):  #定义类方法 ，需要@classmethod声明
+        print("类方法%s"%clazz)
+        clazz().common_method()  #clazz()可实例化本类对象，调用普通方法
+    def common_method(self):  #定义普通方法
+        print("普通方法")
+def main():
+    print(Member.static_method())
+    Member.class_method()     #类方法通过类名直接调用
+if __name__=="__main__":
+    main()
+    
+    
+
+
+
+""" 类方法与构造方法"""
+class message:   # 类方法主要功能为了弥补构造方法缺陷
+    def __init__(self,name,age):
+        self._name=name
+        self._age=age
+    def __str__(self):
+        return"%s:%s"%(self._name,self._age)
+    @classmethod
+    def clamethod(clazz,info):
+        result=info.split("-")
+        return clazz(result[0],result[1])
+def main():
+    mem_a=message("可乐翔",23) #通过构造方法接收两个参数
+    print(mem_a) 
+    mem_b=message.clamethod("可乐翔-21")#通过类方法接收一个变两个的参数
+    print(mem_b)    
+if __name__=="__main__":
+    main()
+    
+    
+
+
+"""装饰器属性访问"""
+class cla:
+    def __init__(self,info):
+        self._info=info
+    @property       #声明作为一个属性 getter
+    def info(self):
+        return self._info
+    @info.setter       #setter
+    def info(self,info):
+        self._info=info
+    @info.deleter         #del
+    def info(self):
+        del self._info
+def main():
+    c=cla("可乐翔")
+    c.info="天青色"  #直接访问属性
+    print(c.info)
+    del c.info
+if __name__=="__main__":
+    main()
+    
+    
+ 
+运行结果：
+普通方法
+静态方法
+类方法<class '__main__.Member'>
+普通方法
+可乐翔:23
+可乐翔:21
+天青色
