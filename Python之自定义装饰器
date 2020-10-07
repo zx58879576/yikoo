@@ -1,0 +1,121 @@
+# -*- coding: utf-8 -*-
+""" 日志采集"""
+class Member :
+    def print_name(self):
+        log()
+        print("可乐翔")
+    def print_age(self):
+        log()
+        print(23)
+def log():
+    import inspect    #导入inspect模块
+    method_name=inspect.stack()[1][3] #调用模块中stack方法，返回日志信息，[1][3]返回函数名
+    print("进入%s方法"%method_name)
+def main():
+    mem=Member()
+    mem.print_name()
+    mem.print_age()
+if __name__=="__main__":
+    main()
+    
+
+
+"""定义装饰器"""
+def logging(func): #定义装饰器，接收操作函数，由python传递
+    def wrapper(*args,**kwargs):  
+        print("【LOGGING-INFO】进入%s方法"%func.__name__) #func.__name__获取包装函数名称
+        return func(*args,**kwargs)
+    return wrapper  #返回装饰内部函数
+class Member_1 :
+    @logging           #不破坏原始方法结果
+    def print_name(self):
+        print("可乐翔")
+    @logging
+    def print_age(self):
+        print(23)
+def main():
+    mem1=Member_1()
+    mem1.print_name()
+    mem1.print_age()
+if __name__=="__main__":
+    main()
+
+
+
+
+"""装饰器传递参数 """
+def logging(lev): #定义装饰器，接收操作函数，由python传递
+    def wrapper(func):
+       def inner_wrapper(*args,**kwargs):  
+          print("【LOGGING-%s】进入%s方法"%(lev,func.__name__)) #func.__name__获取包装函数名称
+          return func(*args,**kwargs)  #继续调用被包装函数的操作
+       return inner_wrapper    
+    return wrapper  #返回装饰内部函数
+class Member_1 :
+    @logging (lev="DEBUG")          #装饰器传参
+    def print_name(self):
+        print("可乐翔")
+    @logging(lev="INFO")
+    def print_age(self):
+        print(23)
+def main():
+    mem1=Member_1()
+    print("---------------引入参数---------------------")
+    mem1.print_name()
+    mem1.print_age()
+if __name__=="__main__":
+    main()
+    
+    
+    
+
+
+"""基于类定义装饰器 """
+# import wrapt   #也可用wrapt模块
+class Logging: #
+    def __init__(self,lev="INFO"):
+        self._lev=lev
+    def __call__(self,func):
+        def inner_wrapper(*args,**kwargs):  
+          print("【LOGGING-%s】进入%s方法"%(self._lev,func.__name__)) #func.__name__获取包装函数名称
+          return func(*args,**kwargs)
+        return inner_wrapper    
+class Member_2 :
+    @Logging (lev="DEBUG")          #装饰器传参
+    def print_name(self):
+        print("可乐翔")
+    @Logging()
+    def print_age(self):
+        print(23)
+def main():
+    mem2=Member_2()
+    print("---------------基于类---------------------")
+    mem2.print_name()
+    mem2.print_age()
+if __name__=="__main__":
+    main()
+    
+    
+    
+    
+
+
+运行结果：
+进入print_name方法
+可乐翔
+进入print_age方法
+23
+【LOGGING-INFO】进入print_name方法
+可乐翔
+【LOGGING-INFO】进入print_age方法
+23
+---------------引入参数---------------------
+【LOGGING-DEBUG】进入print_name方法
+可乐翔
+【LOGGING-INFO】进入print_age方法
+23
+---------------基于类---------------------
+【LOGGING-DEBUG】进入print_name方法
+可乐翔
+【LOGGING-INFO】进入print_age方法
+23
