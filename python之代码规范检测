@@ -1,0 +1,76 @@
+pylint --version
+运行结果：
+pylint 2.5.3
+astroid 2.4.2
+Python 3.8.3 (default, Jul  2 2020, 17:30:36) [MSC v.1916 64 bit (AMD64)]
+
+
+
+hello.py
+
+# -*- coding: utf-8 -*-
+'''性能测试'''
+import cProfile
+import pstats
+'''windows搜索Anaconda Prompt ,安装pylint模块 conda install pylint
+执行：pylint D:\pythonWork\ecjtu\hello.py  检测代码规范
+'''
+#pylint:disable=C0326
+def allsum(num):
+    sum=0
+    for item in range(num):
+        sum+=item
+    return sum
+def main():
+    stats=pstats.Stats("D:\\pythonWork\\ecjtu\\test.result")
+    stats.sort_stats("time")
+    stats.print_stats()
+if __name__=="__main__":
+    cProfile.run("allsum(12412412)","D:\\pythonWork\\ecjtu\\test.result")
+    main()
+   
+    '''ncalls: 函数调用总次数
+      tottime ：函数总共运行时间
+      percall：函数运行一次平均时间 tottime÷ncalls
+     cumtime：函数总计运行时间
+     percall：函数运行一次平均时间
+     filename:lineno(function) 函数所在相关信息
+   '''
+
+
+
+
+
+
+
+
+'''windows搜索Anaconda Prompt ,安装pylint模块 conda install pylint
+执行：pylint D:\pythonWork\ecjtu\hello.py  检测代码规范
+'''
+运行结果：
+************* Module hello
+D:\pythonWork\ecjtu\hello.py:16:0: W0311: Bad indentation. Found 3 spaces, expected 4 (bad-indentation)
+D:\pythonWork\ecjtu\hello.py:17:0: W0311: Bad indentation. Found 3 spaces, expected 4 (bad-indentation)
+D:\pythonWork\ecjtu\hello.py:18:0: C0303: Trailing whitespace (trailing-whitespace)
+D:\pythonWork\ecjtu\hello.py:25:0: C0304: Final newline missing (missing-final-newline)
+D:\pythonWork\ecjtu\hello.py:19:0: W0311: Bad indentation. Found 3 spaces, expected 4 (bad-indentation)
+D:\pythonWork\ecjtu\hello.py:6:0: C0116: Missing function or method docstring (missing-function-docstring)
+D:\pythonWork\ecjtu\hello.py:7:4: W0622: Redefining built-in 'sum' (redefined-builtin)
+D:\pythonWork\ecjtu\hello.py:11:0: C0116: Missing function or method docstring (missing-function-docstring)
+D:\pythonWork\ecjtu\hello.py:19:3: W0105: String statement has no effect (pointless-string-statement)
+
+------------------------------------------------------------------
+Your code has been rated at 4.00/10 (previous run: 0.00/10, +4.00)
+
+
+(base) C:\Users\Administrator>pylint D:\pythonWork\ecjtu\hello.py
+************* Module hello
+D:\pythonWork\ecjtu\hello.py:18:0: C0303: Trailing whitespace (trailing-whitespace)
+D:\pythonWork\ecjtu\hello.py:25:0: C0304: Final newline missing (missing-final-newline)
+D:\pythonWork\ecjtu\hello.py:6:0: C0116: Missing function or method docstring (missing-function-docstring)
+D:\pythonWork\ecjtu\hello.py:7:4: W0622: Redefining built-in 'sum' (redefined-builtin)
+D:\pythonWork\ecjtu\hello.py:11:0: C0116: Missing function or method docstring (missing-function-docstring)
+D:\pythonWork\ecjtu\hello.py:19:4: W0105: String statement has no effect (pointless-string-statement)
+
+------------------------------------------------------------------
+Your code has been rated at 6.00/10 (previous run: 4.00/10, +2.00)
