@@ -1,0 +1,28 @@
+练习：某个公司采用公用电话传递数据，数据是四位的整数，在传递过程中是加密的，加密规则如下：每位数字都加上5,再将第一位和第四位交换，第二位和第三位交换，结果再减去1000
+
+# -*- coding: utf-8 -*-
+
+def main():
+    num=int(input("输入："))
+    len1=len(str(num))
+    if len1!=4:
+        
+        num=int(input("错误，请重新输入："))
+        len1=len(str(num))
+    
+    str_a=str(int("1"*len1)*5+num)
+    order=[]
+    for i in str_a:
+           order.append(i)
+    order.reverse()
+    num_a=int(order[0]+order[1]+order[2]+order[3])    
+    print(num_a-1000)
+if __name__=="__main__":
+    main()
+
+
+运行结果：
+输入：123
+
+错误，请重新输入：1234
+8876
